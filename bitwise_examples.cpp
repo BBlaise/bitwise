@@ -7,54 +7,46 @@
 //============================================================================
 
 #include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
 #include <stdint.h>
+#include <math.h>
 #include <bitset>
 
 #include "bitwise.h"
 
 using namespace std;
 
-int main(){
-	cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
+int main() {
+	//cout << "!!!Hello World!!!" << endl; // prints !!!Hello World!!!
 
-	uint8_t original = 0b00011001;
-	bitset<8> o(original);
-	cout << o << endl;
-	uint8_t final = 0;
+	/*
+	uint8_t tx_msg = 0b10011011;
+	uint8_t bits_to_clear[2] = {1, 0};
+	//clearBit(tx_msg, 0);
+	//clearBit(tx_msg, 1);
+	clearBits(tx_msg, bits_to_clear, 2);
 
-/*
-	// Set a bit
-	final = setBit(original, 2);
+	bitset<8> tx_msg_b(tx_msg);
+	cout << tx_msg_b << endl;
 
-	// Set multiple bits
-	uint8_t bit_list[2] = {1, 2};
-	uint8_t n_bits = sizeof(bit_list);
-	final = setBits(original, bit_list, n_bits);
+	uint8_t mask;
+	//mask = 0b00;
+	//mask = 0b01;
+	mask = 0b10;
+	setMask(tx_msg, mask, 1, 0);
 
-	// Clear bit
-	final = clearBit(original, 3);
+	bitset<8> final(tx_msg);
+	cout << tx_msg_b << endl;
+	*/
 
-	// Clear multiple bits
-	uint8_t bit_list[2] = {0, 3};
-	uint8_t n_bits = sizeof(bit_list);
-	final = clearBits(original, bit_list, n_bits);
-
-	// Toggle bit
-	final = toggleBit(original, 1);
-
-	// Toggle multiple bits
-	uint8_t bit_list[2]= {0, 1};
-	uint8_t n_bits = sizeof(bit_list);
-	final = toggleBits(original, bit_list, n_bits);
-	bitset<8> f(final);
-	cout << f << endl;
-*/
-
-	// Check if bit is set
-	cout << checkBit(original, 1) << endl;
+	uint8_t byte = 0b11111111;
+	bitset<8> byte_b(byte);
+	cout << byte_b << endl;
+	uint8_t to_clear = 0b01101100;
+	clearBits(byte, to_clear);
+	bitset<8> result(byte);
+	cout << result << endl;
 
 	return 0;
 }
+
 

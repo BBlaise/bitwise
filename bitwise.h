@@ -11,12 +11,15 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-uint8_t setBit(uint8_t input, uint8_t bit);
-uint8_t setBits(uint8_t input, uint8_t* bits, uint8_t n_bits);
-uint8_t clearBit(uint8_t input, uint8_t bit);
-uint8_t clearBits(uint8_t input, uint8_t* bits, uint8_t n_bits);
-uint8_t toggleBit(uint8_t input, uint8_t bit);
-uint8_t toggleBits(uint8_t input, uint8_t* bits, uint8_t n_bits);
-bool checkBit(uint8_t intput, uint8_t bit);
+uint8_t setBit(uint8_t& input, uint8_t bit);
+uint8_t setBits(uint8_t& input, uint8_t* bits, uint8_t n_bits);
+uint8_t setMask(uint8_t& input, uint8_t mask, uint8_t msb, uint8_t lsb);
+uint8_t clearBit(uint8_t& input, uint8_t bit);
+uint8_t clearBits(uint8_t& input, uint8_t bits);
+uint8_t clearBits(uint8_t& input, uint8_t* bits, uint8_t n_bits);
+uint8_t toggleBit(uint8_t& input, uint8_t bit);
+uint8_t toggleBits(uint8_t& input, uint8_t* bits, uint8_t n_bits);
+bool checkBit(uint8_t& intput, uint8_t bit);
+extern int twosComplement(uint8_t num);
 
 #endif /* BITWISE_H_ */

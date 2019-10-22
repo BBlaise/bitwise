@@ -14,8 +14,8 @@
 #include <stdbool.h>
 
 uint8_t setBit(uint8_t& input, uint8_t bit){
-	input |= (1UL << bit);
-	return input;
+	uint8_t output = input | (1UL << bit);
+	return output;
 }
 
 uint8_t setBits(uint8_t& input, uint8_t* bits, uint8_t n_bits){
@@ -23,34 +23,25 @@ uint8_t setBits(uint8_t& input, uint8_t* bits, uint8_t n_bits){
 	for(int ii = 0; ii < n_bits; ii++){
 		mask |= 1UL << bits[ii];
 	}
-	input |= mask;
-	return input;
+	uint8_t output = input | mask;
+	return output;
 }
 
 uint8_t setMask(uint8_t& input, uint8_t mask, uint8_t msb, uint8_t lsb){
+    uint8_t output = input;
 	for(int ii = msb; ii > (lsb-1); ii--){		// clear bits
-		input &= ~(1UL << ii);
+		output &= ~(1UL << ii);
 		//output = clearBit(output, ii);
 	}
 
-	input |= (mask << lsb);
-	return input;
+	output |= (mask << lsb);
+	return output;
 }
 
 uint8_t clearBit(uint8_t& input, uint8_t bit){
-	//uint8_t output = input;
-	input &= ~(1UL << bit);
-	return input;
-}
-
-uint8_t clearBits(uint8_t& input, uint8_t bits){
-	int ii;
-	for(ii = 0; ii < 8; ii++){
-		if((bits >> ii) & 1 == 1){
-			input &= ~(1UL << ii);
-		}
-	}
-	return input;
+	uint8_t output = input;
+	output &= ~(1UL << bit);
+	return output;
 }
 
 uint8_t clearBits(uint8_t& input, uint8_t* bits, uint8_t n_bits){
@@ -58,13 +49,13 @@ uint8_t clearBits(uint8_t& input, uint8_t* bits, uint8_t n_bits){
 	for(int ii = 0; ii < n_bits; ii++){
 		mask |= 1UL << bits[ii];
 	}
-	input &= ~mask;
-	return input;
+	uint8_t output = input & ~mask;
+	return output;
 }
 
 uint8_t toggleBit(uint8_t& input, uint8_t bit){
-	input = input^ (1UL << bit);
-	return input;
+	uint8_t output = input ^(1UL << bit);
+	return output;
 }
 
 uint8_t toggleBits(uint8_t& input, uint8_t* bits, uint8_t n_bits){
@@ -72,8 +63,8 @@ uint8_t toggleBits(uint8_t& input, uint8_t* bits, uint8_t n_bits){
 	for(int ii = 0; ii < n_bits; ii++){
 		mask |= 1UL << bits[ii];
 	}
-	input = input ^ mask;
-	return input;
+	uint8_t output = input ^ mask;
+	return output;
 }
 
 bool checkBit(uint8_t& input, uint8_t bit){
@@ -84,7 +75,6 @@ bool checkBit(uint8_t& input, uint8_t bit){
 	return is_set;
 }
 
-extern int twosComplement(uint8_t num){
-    //return -(unsigned int)num;
-	return (int8_t)num;
+extern uint8_t twosComplement(uint8_t num){
+    return -(unsigned int)num;
 }
