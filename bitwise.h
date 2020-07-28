@@ -19,7 +19,20 @@ uint8_t clearBits(uint8_t& input, uint8_t bits);
 uint8_t clearBits(uint8_t& input, uint8_t* bits, uint8_t n_bits);
 uint8_t toggleBit(uint8_t& input, uint8_t bit);
 uint8_t toggleBits(uint8_t& input, uint8_t* bits, uint8_t n_bits);
+bool checkBit(uint8_t& input, uint8_t bit);
 bool checkBit(uint8_t& intput, uint8_t bit);
-extern int twosComplement(uint8_t num);
+int twosComplement(uint8_t num);
+
+// Converting Arrays of Bytes (uint8_t) to Numbers
+int bytesToInt(uint8_t* byte_array);
+int32_t bytesToInt32(uint8_t* byte_array);
+int16_t bytesToInt16(uint8_t* byte_array);
+float bytesToFloat(uint8_t* byte_array);
+
+// Converting Numbers into Arrays of Bytes
+void intToBytes(int my_int, uint8_t* byte_array);
+void int16ToBytes(int16_t my_int, uint8_t* byte_array);
+void int32ToBytes(int32_t my_int, uint8_t* byte_array);
+void floatToBytes(float my_float, uint8_t* byte_array);
 
 #endif /* BITWISE_H_ */
