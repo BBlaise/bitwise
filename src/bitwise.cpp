@@ -9,11 +9,8 @@
 // - Accept references where possible
 
 #include "bitwise.h"
-
 #include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include <stdio.h>
+#include <string.h>			// for memcpy
 
 uint8_t setBit(uint8_t& input, uint8_t bit){
 	input |= (1UL << bit);
@@ -86,33 +83,53 @@ bool checkBit(uint8_t& input, uint8_t bit){
 	return is_set;
 }
 
-int twosComplement(uint8_t num){
+int twosComplement(uint8_t num) {
+	// TODO for more than uint8_t to int8_t
     //return -(unsigned int)num;
 	return (int8_t)num;
 }
 
 /*-----------------------------------------------------------*/
 // Converting Arrays of Bytes (uint8_t) to Numbers
-
-int bytesToInt(uint8_t* byte_array){
-	int n_bytes = sizeof(int);
-	int my_int = byte_array[0];
+uint16_t bytesToUint16(uint8_t* byte_array) {
+	int n_bytes = 2;
+	uint16_t my_int = byte_array[0];
+	for(int ii = 1; ii < n_bytes; ii++){
+		my_int = my_int << 8 | byte_array[ii];
+	}
+	return my_int;
+}
+uint32_t bytesToUint32(uint8_t* byte_array) {
+	int n_bytes = 4;
+	uint32_t my_int = byte_array[0];
 	for(int ii = 1; ii < n_bytes; ii++){
 		my_int = my_int << 8 | byte_array[ii];
 	}
 	return my_int;
 }
 
-int32_t bytesToInt32(uint8_t* byte_array){
-	int32_t my_int = byte_array[0];
-	for(int ii = 1; ii < 4; ii++){
-		my_int = my_int << 8 | byte_array[ii];
-	}
+
+
+int8_t byteToInt8(uint8_t my_byte){
+	int8_t my_int = (int8_t)my_byte;
 	return my_int;
 }
 
 int16_t bytesToInt16(uint8_t* byte_array){
 	int16_t my_int = byte_array[0] << 8 | byte_array[1];
+	return my_int;
+}
+
+int32_t bytesToInt32(uint8_t* byte_array){
+	int32_t my_int = byte_array[0];
+	for(int ii = 1; ii < 4; ii++) my_int = my_int << 8 | byte_array[ii];
+	return my_int;
+}
+
+int bytesToInt(uint8_t* byte_array){
+	int n_bytes = sizeof(int);
+	int my_int = byte_array[0];
+	for(int ii = 1; ii < n_bytes; ii++) my_int = my_int << 8 | byte_array[ii];
 	return my_int;
 }
 
@@ -122,30 +139,34 @@ float bytesToFloat(uint8_t* byte_array){
     return my_float;
 }
 
+
 /*-----------------------------------------------------------*/
 // Converting Numbers into Arrays of Bytes
-void intToBytes(int my_int, uint8_t* byte_array){
-	int n_bytes = sizeof(my_int);
+// void intToBytes(int my_int, uint8_t* byte_array) {
+// 	int n_bytes = sizeof(my_int);
+// 	int shift;
 
-	int shift = 24 - 8*(n_bytes);
-	byte_array[0] = (my_int >> shift);
+// 	for(int ii = 0; ii < n_bytes; ii++){
+// 		shift = 8*(n_bytes-1) - 8*(ii);
+// 		byte_array[ii] = (my_int >> shift) & 0xFF;
+// 	}
+// }
 
-	for(int ii = 1; ii < n_bytes; ii++){
-		shift = 24 - 8*(n_bytes+ii);
-		byte_array[ii] = (my_int >> shift) & 0xFF;
-	}
-}
-
-void int32ToBytes(int32_t my_int, uint8_t* byte_array){
-    byte_array[0] = (my_int >> 24) & 0x000000FF;
-    byte_array[1] = (my_int >> 16) & 0x000000FF;
-    byte_array[2] = (my_int >> 8) & 0x000000FF;
-    byte_array[3] = my_int & 0x000000FF;
+uint8_t int8ToByte(int8_t my_int) {
+	uint8_t my_byte = (uint8_t)my_int;
+	return my_byte;
 }
 
 void int16ToBytes(int16_t my_int, uint8_t* byte_array){
-    byte_array[0] = (my_int >> 8) & 0x00FF;
-    byte_array[1] = my_int & 0x00FF;
+    byte_array[0] = (my_int >> 8) & 0xFF;
+    byte_array[1] = my_int & 0xFF;
+}
+
+void int32ToBytes(int32_t my_int, uint8_t* byte_array){
+    byte_array[0] = (my_int >> 24) & 0xFF;
+    byte_array[1] = (my_int >> 16) & 0xFF;
+    byte_array[2] = (my_int >> 8) & 0xFF;
+    byte_array[3] = my_int & 0xFF;
 }
 
 void floatToBytes(float my_float, uint8_t* byte_array){
@@ -153,8 +174,8 @@ void floatToBytes(float my_float, uint8_t* byte_array){
         float union_float_;
         uint8_t union_byte_array[4];
     } u;
-    // Overite bytes of union with float variable
-    u.union_float_ = my_float;
-    // Assign bytes to input array
-    memcpy(byte_array, u.union_byte_array, 4);
+    
+    u.union_float_ = my_float;// Overite bytes of union with float variable
+    memcpy(byte_array, u.union_byte_array, 4);    // Assign bytes to input array
+
 }
