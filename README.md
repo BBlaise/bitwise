@@ -1,20 +1,27 @@
-# Library Name
+# bitwise
 
-One or two sentences explaining what the library does and when to use it.
+Small C++ helpers for setting, clearing, toggling, and checking bits in a byte and converting between byte arrays and numeric values.
 
 ## Install
 
-List the files to add to the project and any required dependencies.
+Add [src/bitwise.h](src/bitwise.h) and [src/bitwise.cpp](src/bitwise.cpp) to your project. Include the header and compile and link the source with your application. There are no external dependencies.
 
 ## Usage
 
-Show the shortest working snippet and what it should produce.
+```cpp
+#include "bitwise.h"
+
+int main() {
+    uint8_t value = 0x09;
+    setBit(value, 2);  // value becomes 0x0D. Bit 0 is the least significant bit.
+}
+```
 
 ## Examples
 
-- [Basic usage](examples/basic_usage.c) — Shows how to initialize the library and use its main function.
-- [Application example](examples/application_example.c) — Shows how to use the library in a representative application.
+- [Bit manipulation](examples/bitwise_demo.cpp) — Set, check, and clear a bit in a byte.
+- [Integer to bytes](examples/integer_bytes.cpp) — Write a 16-bit value as two bytes, most significant first, and read it back.
 
 ## License
 
-[License name](LICENSE)
+[MIT License](LICENSE.md)
